@@ -1,30 +1,16 @@
 package src.main.java.ch.heigvd.dai.model.mail;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Group {
-    private final Person sender;
-    private final ArrayList<Person> recipients;
+  private final List<Person> members = new ArrayList();
 
-    public Group(Person sender, ArrayList<Person> recipients) throws IllegalArgumentException
-    {
-        if (recipients.size() < 2) throw new IllegalArgumentException("Groupe must contains at least 2 recipients !");
-        this.sender = sender;
-        this.recipients = recipients;
-    }
+  public void addMember(Person person) {
+      members.add(person);
+  }
 
-    public Person getSender()
-    {
-        return sender;
-    }
-
-    public ArrayList<Person> getRecipients()
-    {
-       return recipients;
-    }
-
-    public String toString()
-    {
-        return "Groupe{sender='" + sender + "', recipients='" + recipients + "'}";
-    }
+  public List<Person> getMembers() {
+      return members;
+  }
 }

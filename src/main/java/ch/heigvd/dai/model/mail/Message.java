@@ -1,12 +1,26 @@
 package src.main.java.ch.heigvd.dai.model.mail;
 
 public class Message {
-    private final String subject;
-    private final String body;
+    private String from;
+    private String[] to = new String[0];
+    private String subject;
+    private String body;
 
-    public Message(String subject, String body) {
-        this.subject = subject;
-        this.body = body;
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String[] getTo(){
+        return to;
+    }
+
+    public void setTo(String[] to) {
+        this.to = to;
     }
 
     public String getSubject()
@@ -14,15 +28,17 @@ public class Message {
         return subject;
     }
 
+    public void setSubject(String subject) {
+        this.body = subject;
+    }
 
     public String getBody()
     {
         return body;
     }
 
-
-    public String toSring()
-    {
-        return "Message{subject='" + subject + "'body='" + body + "}";
+    public void setBody(String body) {
+        this.body = body;
     }
+
 }

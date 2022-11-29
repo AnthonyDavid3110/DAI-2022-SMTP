@@ -6,3 +6,6 @@
 
 # Client smtp
 - voir si on veut message encodé en base64
+
+# Code
+ajouter toString dans les classe
