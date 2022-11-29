@@ -23,7 +23,7 @@ public class Group {
        return recipients;
     }
 
-    public String toStrinf()
+    public String toString()
     {
         return "Groupe{sender='" + sender + "', recipients='" + recipients + "'}";
     }
