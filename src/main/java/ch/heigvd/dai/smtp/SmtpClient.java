@@ -30,8 +30,7 @@ public class SmtpClient implements ISmtpClient {
     @Override
     public void sendMessage(Message message) throws IOException {
         LOG.info("Sending message via SMTP");
-        Socket socket = new Socket(smtpServerAddr, smtpServerPort);
-
+        socket = new Socket(smtpServerAddr, smtpServerPort);
         writer = new PrintWriter((new OutputStreamWriter(socket.getOutputStream())));
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -66,7 +65,7 @@ public class SmtpClient implements ISmtpClient {
             LOG.info(line);
         }
 
-        writer.write("DATA");
+        writer.write("DATA");  // What is that ?
         writer.write(CRLF);
         writer.flush();
 

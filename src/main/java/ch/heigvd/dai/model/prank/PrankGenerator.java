@@ -21,31 +21,31 @@ public class PrankGenerator {
         this.configurationManager = configurationManager;
     }
 
-    public List<Prank> generatePranks() {
+    public List<Prank> generatePranks() throws IllegalArgumentException {
         List<Prank> pranks = new ArrayList<>();
-
         List<String> messages = configurationManager.getMessages();
         int messageIndex = 0;
-
         int numberOfGroups = configurationManager.getNumberOfGroups();
+
         List<Person> victimsList = configurationManager.getVictims();
         int numberOfVictims = victimsList.size();
-
         if (numberOfVictims / numberOfGroups < 3) {
             numberOfGroups = numberOfVictims / 3;
-            throw new IllegalArgumentException("Thera are not enough victims to complete all the groups");
+            throw new IllegalArgumentException("There are not enough victims to complete all the groups");
         }
-
         List<Group> groups = generateGroups(victimsList, numberOfGroups);
         for (Group group : groups) {
-            Prank prank  = new Prank();
-
             List<Person> victims = group.getMembers();
             Collections.shuffle(victims);
             Person sender = victims.remove(0);
+
+            Prank prank  = new Prank();
             prank.addRecipiens(victims);
+
             String message = messages.get(messageIndex);
             messageIndex = (messageIndex + 1) % messages.size();
+            prank.setMessage(message);
+
             pranks.add(prank);
         }
     return pranks;
@@ -55,16 +55,19 @@ public class PrankGenerator {
         List<Person> availableVictims = new ArrayList<>(victims);
         Collections.shuffle(availableVictims);
         List<Group> groups = new ArrayList<>();
+
         for (int i = 0; i < numberOfGroups; i++){
             Group group = new Group();
             groups.add(group);
         }
+
         int turn = 0;
         Group targetGroup;
+
         while (availableVictims.size() > 0) {
             targetGroup = groups.get(turn);
             turn = (turn + 1) % groups.size();
-            Person victim =availableVictims.remove(0);
+            Person victim = availableVictims.remove(0);
             targetGroup.addMember(victim);
         }
         return groups;
