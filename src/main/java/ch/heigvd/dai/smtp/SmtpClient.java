@@ -31,13 +31,17 @@ public class SmtpClient implements ISmtpClient {
     public void sendMessage(Message message) throws IOException {
         LOG.info("Sending message via SMTP");
         Socket socket = new Socket(smtpServerAddr, smtpServerPort);
+
         writer = new PrintWriter((new OutputStreamWriter(socket.getOutputStream())));
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
         String line = reader.readLine();
         LOG.info(line);
+
         writer.printf("EHLO localhost" + CRLF);
         line = reader.readLine();
         LOG.info(line);
+
         if (!line.startsWith("250")) {
             throw new IOException("SMTP error: " + line);
         }
@@ -65,17 +69,19 @@ public class SmtpClient implements ISmtpClient {
         writer.write("DATA");
         writer.write(CRLF);
         writer.flush();
+
         line = reader.readLine();
         LOG.info(line);
+
         writer.write("Content.Tye: text/plain; charset=\"utf-8\"" + CRLF);
         writer.write("From: " + message.getFrom() + CRLF);
-
         writer.write("To: " + message.getTo()[0] + CRLF);
+
         for (int i = 1; i < message.getTo().length; i++){
             writer.write(", " + message.getTo()[i]);
         }
-        writer.write(CRLF);
 
+        writer.write(CRLF);
         writer.flush();
 
         LOG.info(message.getBody());
@@ -84,7 +90,9 @@ public class SmtpClient implements ISmtpClient {
         writer.write(".");
         writer.write(CRLF);
         writer.flush();
+
         line = reader.readLine();
+
         LOG.info(line);
         writer.write("QUIT" + CRLF);
         writer.flush();
