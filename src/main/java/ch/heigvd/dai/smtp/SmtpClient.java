@@ -4,7 +4,6 @@ import ch.heigvd.dai.model.mail.Message;
 
 import java.io.*;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 /**
@@ -12,15 +11,12 @@ import java.util.logging.Logger;
  * @author Stéphane Nascimento Santos
  */
 public class SmtpClient implements ISmtpClient {
-    private static final String LF = "\n";
     private static final String CRLF = "\r\n";
     private static final Logger LOG = Logger.getLogger(SmtpClient.class.getName());
-    private String smtpServerAddr;
-    private int smtpServerPort = 25;
+    private final String smtpServerAddr;
+    private final int smtpServerPort;
 
-    private Socket socket;
-    private PrintWriter writer;
-    private BufferedReader reader;
+
 
     public SmtpClient(String smtpServerAddr, int smtpServerPort) {
         this.smtpServerAddr = smtpServerAddr;
@@ -30,9 +26,10 @@ public class SmtpClient implements ISmtpClient {
     @Override
     public void sendMessage(Message message) throws IOException {
         LOG.info("Sending message via SMTP");
-        socket = new Socket(smtpServerAddr, smtpServerPort);
-        writer = new PrintWriter((new OutputStreamWriter(socket.getOutputStream())));
-        reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+        Socket socket = new Socket(smtpServerAddr, smtpServerPort);
+        PrintWriter writer = new PrintWriter((new OutputStreamWriter(socket.getOutputStream(), "UTF-8")), true);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 
         String line = reader.readLine();
         LOG.info(line);
@@ -65,7 +62,7 @@ public class SmtpClient implements ISmtpClient {
             LOG.info(line);
         }
 
-        writer.write("DATA");  // What is that ?
+        writer.write("DATA");
         writer.write(CRLF);
         writer.flush();
 
