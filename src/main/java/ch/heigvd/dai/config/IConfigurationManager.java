@@ -10,4 +10,8 @@ public interface IConfigurationManager {
     public List<String> getMessages();
 
     public int getNumberOfGroups();
+
+    public String getSmtpServerAddr();
+
+    public int getSmtpServerPort();
 }

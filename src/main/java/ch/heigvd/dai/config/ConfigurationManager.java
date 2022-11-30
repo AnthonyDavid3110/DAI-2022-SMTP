@@ -21,9 +21,9 @@ public class ConfigurationManager implements IConfigurationManager {
     private int numberOfGroups;
 
     public ConfigurationManager() throws IOException {
-        victims = loadAddressesFromFile("victims.utf8");
-        messages = loadMessagesFromFile("messages.utf8");
-        loadProperties("config.properties");
+        victims = loadAddressesFromFile("./config/addresses.utf8");
+        messages = loadMessagesFromFile("./config/messages.utf8");
+        loadProperties("./config/param.properties");
     }
 
     private void loadProperties(String fileName) throws IOException {
@@ -86,5 +86,15 @@ public class ConfigurationManager implements IConfigurationManager {
     @Override
     public int getNumberOfGroups() {
         return numberOfGroups;
+    }
+
+    @Override
+    public String getSmtpServerAddr(){
+        return smtpServerAddr;
+    }
+
+    @Override
+    public int getSmtpServerPort(){
+        return smtpServerPort;
     }
 }

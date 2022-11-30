@@ -1,7 +1,5 @@
 package src.main.java.ch.heigvd.dai.model.mail;
 
-import jdk.incubator.foreign.Addressable;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
