@@ -14,7 +14,7 @@ public class Prank {
     private final ArrayList<Person> recipients = new ArrayList<>();
     private String message;
 
-    public Person getVictimSender() {
+    public Person getSender() {
         return sender;
     }
 

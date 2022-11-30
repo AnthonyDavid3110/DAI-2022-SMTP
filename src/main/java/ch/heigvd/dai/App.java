@@ -23,6 +23,7 @@ public class App
             final List<Prank> pranks = prankGenerator.generatePranks();
             LOG.log(Level.INFO, "Sending mails pranks");
 
+
             // Création des pranks et envoie
             for (Prank p : pranks) {
                 client.sendMessage(p.generateMessage());

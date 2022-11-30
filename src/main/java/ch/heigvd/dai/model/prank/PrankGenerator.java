@@ -1,6 +1,5 @@
 package src.main.java.ch.heigvd.dai.model.prank;
 
-import src.main.java.ch.heigvd.dai.config.ConfigurationManager;
 import src.main.java.ch.heigvd.dai.config.IConfigurationManager;
 import src.main.java.ch.heigvd.dai.model.mail.Group;
 import src.main.java.ch.heigvd.dai.model.mail.Person;
@@ -9,13 +8,16 @@ import java.util.Collections;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * @author Anthony David
  * @author Stéphane Nascimento Santos
  */
 public class PrankGenerator {
-    private IConfigurationManager configurationManager;
+    private final IConfigurationManager configurationManager;
+    private static final Logger LOG = Logger.getLogger(PrankGenerator.class.getName());
+
 
     public PrankGenerator(IConfigurationManager configurationManager) {
         this.configurationManager = configurationManager;
@@ -28,24 +30,27 @@ public class PrankGenerator {
         int messageIndex = 0;
 
         int numberOfGroups = configurationManager.getNumberOfGroups();
-        List<Person> victimsList = configurationManager.getVictims();
-        int numberOfVictims = victimsList.size();
+        int numberOfVictims = configurationManager.getVictims().size();
 
         if (numberOfVictims / numberOfGroups < 3) {
             numberOfGroups = numberOfVictims / 3;
-            throw new IllegalArgumentException("Thera are not enough victims to complete all the groups");
+            LOG.warning("There are not enough victims to generate the desired number of groups, We can only genereate a max of " + numberOfGroups + " groups to have at least 3 victims per groups.");
         }
 
-        List<Group> groups = generateGroups(victimsList, numberOfGroups);
+        List<Group> groups = generateGroups(configurationManager.getVictims(), numberOfGroups);
         for (Group group : groups) {
             Prank prank  = new Prank();
 
             List<Person> victims = group.getMembers();
             Collections.shuffle(victims);
             Person sender = victims.remove(0);
+            prank.setSender(sender);
             prank.addRecipiens(victims);
+
             String message = messages.get(messageIndex);
             messageIndex = (messageIndex + 1) % messages.size();
+            prank.setMessage(message);
+
             pranks.add(prank);
         }
     return pranks;

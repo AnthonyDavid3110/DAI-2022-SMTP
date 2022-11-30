@@ -6,12 +6,12 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 public class ConfigurationManager implements IConfigurationManager {
-    private static final String LF = "\n";
     private static final String CRLF = "\r\n";
     private static final String MESSAGE_SEPARATOR = "==";
     private String smtpServerAddr;
@@ -38,7 +38,7 @@ public class ConfigurationManager implements IConfigurationManager {
     private List<Person> loadAddressesFromFile(String fileName) throws IOException {
         List<Person> result;
         try (FileInputStream fis = new FileInputStream(fileName)) {
-            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+            InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
             try (BufferedReader reader = new BufferedReader(isr)) {
                 result = new ArrayList<>();
                 String address = reader.readLine();
@@ -54,7 +54,7 @@ public class ConfigurationManager implements IConfigurationManager {
     private List<String> loadMessagesFromFile(String fileName) throws IOException {
         List<String> result;
         try (FileInputStream fis = new FileInputStream(fileName)) {
-            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+            InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
             try (BufferedReader reader = new BufferedReader(isr)) {
                 result = new ArrayList<>();
                 String line = reader.readLine();
