@@ -1,7 +1,7 @@
-package src.main.java.ch.heigvd.dai.model.prank;
+package ch.heigvd.dai.model.prank;
 
-import src.main.java.ch.heigvd.dai.model.mail.Message;
-import src.main.java.ch.heigvd.dai.model.mail.Person;
+import ch.heigvd.dai.model.mail.Message;
+import ch.heigvd.dai.model.mail.Person;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
-package src.main.java.ch.heigvd.dai.smtp;
+package ch.heigvd.dai.smtp;
 
-import src.main.java.ch.heigvd.dai.model.mail.Message;
+import ch.heigvd.dai.model.mail.Message;
 
 import java.io.IOException;
 

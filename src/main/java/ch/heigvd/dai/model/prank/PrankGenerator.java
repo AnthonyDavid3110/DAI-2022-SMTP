@@ -1,9 +1,9 @@
-package src.main.java.ch.heigvd.dai.model.prank;
+package ch.heigvd.dai.model.prank;
 
-import src.main.java.ch.heigvd.dai.config.ConfigurationManager;
-import src.main.java.ch.heigvd.dai.config.IConfigurationManager;
-import src.main.java.ch.heigvd.dai.model.mail.Group;
-import src.main.java.ch.heigvd.dai.model.mail.Person;
+import ch.heigvd.dai.config.ConfigurationManager;
+import ch.heigvd.dai.config.IConfigurationManager;
+import ch.heigvd.dai.model.mail.Group;
+import ch.heigvd.dai.model.mail.Person;
 
 import java.util.Collections;
 
