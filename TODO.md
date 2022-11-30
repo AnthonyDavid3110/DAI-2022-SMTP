@@ -9,3 +9,6 @@
 
 # Code
 ajouter toString dans les classe
+
+
+Ligne 31 : voir si refonctionne en enlevant la variable temp.

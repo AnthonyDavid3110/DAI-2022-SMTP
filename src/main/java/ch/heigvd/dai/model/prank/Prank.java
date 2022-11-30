@@ -46,7 +46,7 @@ public class Prank {
         String[] to = recipients.stream().map(p -> p.getAddress()).collect(Collectors.toList()).toArray(new String[]{});
         msg.setTo(to);
 
-        msg.setForm(sender.getAddress());
+        msg.setFrom(sender.getAddress());
 
         return msg;
     }

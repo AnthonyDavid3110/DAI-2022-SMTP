@@ -82,4 +82,9 @@ public class ConfigurationManager implements IConfigurationManager {
     public List<String> getMessages() {
         return messages;
     }
+
+    @Override
+    public int getNumberOfGroups() {
+        return numberOfGroups;
+    }
 }
