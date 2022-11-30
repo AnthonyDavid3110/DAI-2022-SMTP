@@ -5,13 +5,13 @@ import ch.heigvd.dai.model.mail.Person;
 import java.util.List;
 
 public interface IConfigurationManager {
-    public List<Person> getVictims();
+    List<Person> getVictims();
 
-    public List<String> getMessages();
+    List<String> getMessages();
 
-    public int getNumberOfGroups();
+    int getNumberOfGroups();
 
-    public String getSmtpServerAddr();
+    String getSmtpServerAddr();
 
-    public int getSmtpServerPort();
+    int getSmtpServerPort();
 }

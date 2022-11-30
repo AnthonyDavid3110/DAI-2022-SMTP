@@ -9,5 +9,5 @@ import java.io.IOException;
  * @author Stéphane Nascimento Santos
  */
 public interface ISmtpClient {
-    public void sendMessage(Message message) throws IOException;
+    void sendMessage(Message message) throws IOException;
 }

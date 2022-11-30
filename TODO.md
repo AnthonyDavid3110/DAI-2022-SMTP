@@ -12,3 +12,5 @@ ajouter toString dans les classe
 
 
 Ligne 31 : voir si refonctionne en enlevant la variable temp.
+
+Classe message : gérer la séparation du sujet et du message
