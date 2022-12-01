@@ -81,7 +81,7 @@ public class SmtpClient implements ISmtpClient {
         writer.flush();
 
         LOG.info(message.getBody());
-        writer.write(message.getFrom());
+        writer.write(message.getBody());
         writer.write(CRLF);
         writer.write(".");
         writer.write(CRLF);
