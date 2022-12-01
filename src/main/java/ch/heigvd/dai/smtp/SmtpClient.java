@@ -1,6 +1,6 @@
-package src.main.java.ch.heigvd.dai.smtp;
+package ch.heigvd.dai.smtp;
 
-import src.main.java.ch.heigvd.dai.model.mail.Message;
+import ch.heigvd.dai.model.mail.Message;
 
 import java.io.*;
 import java.net.Socket;
@@ -16,7 +16,7 @@ public class SmtpClient implements ISmtpClient {
     private final String smtpServerAddr;
     private final int smtpServerPort;
 
-    private Socket socket;
+
 
     public SmtpClient(String smtpServerAddr, int smtpServerPort) {
         this.smtpServerAddr = smtpServerAddr;
@@ -28,15 +28,16 @@ public class SmtpClient implements ISmtpClient {
         LOG.info("Sending message via SMTP");
 
         Socket socket = new Socket(smtpServerAddr, smtpServerPort);
-
         PrintWriter writer = new PrintWriter((new OutputStreamWriter(socket.getOutputStream(), "UTF-8")), true);
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 
         String line = reader.readLine();
         LOG.info(line);
+
         writer.printf("EHLO localhost" + CRLF);
         line = reader.readLine();
         LOG.info(line);
+
         if (!line.startsWith("250")) {
             throw new IOException("SMTP error: " + line);
         }
@@ -64,26 +65,30 @@ public class SmtpClient implements ISmtpClient {
         writer.write("DATA");
         writer.write(CRLF);
         writer.flush();
+
         line = reader.readLine();
         LOG.info(line);
+
         writer.write("Content.Tye: text/plain; charset=\"utf-8\"" + CRLF);
         writer.write("From: " + message.getFrom() + CRLF);
-
         writer.write("To: " + message.getTo()[0] + CRLF);
+
         for (int i = 1; i < message.getTo().length; i++){
             writer.write(", " + message.getTo()[i]);
         }
-        writer.write(CRLF);
 
+        writer.write(CRLF);
         writer.flush();
 
         LOG.info(message.getBody());
-        writer.write(message.getFrom());
+        writer.write(message.getBody());
         writer.write(CRLF);
         writer.write(".");
         writer.write(CRLF);
         writer.flush();
+
         line = reader.readLine();
+
         LOG.info(line);
         writer.write("QUIT" + CRLF);
         writer.flush();

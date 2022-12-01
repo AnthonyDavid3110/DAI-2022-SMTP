@@ -1,6 +1,6 @@
-package src.main.java.ch.heigvd.dai.config;
+package ch.heigvd.dai.config;
 
-import src.main.java.ch.heigvd.dai.model.mail.Person;
+import ch.heigvd.dai.model.mail.Person;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

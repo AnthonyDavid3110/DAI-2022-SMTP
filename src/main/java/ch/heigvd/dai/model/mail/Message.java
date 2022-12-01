@@ -1,4 +1,4 @@
-package src.main.java.ch.heigvd.dai.model.mail;
+package ch.heigvd.dai.model.mail;
 
 public class Message {
     private String from;

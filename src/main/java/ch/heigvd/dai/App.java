@@ -1,8 +1,8 @@
-package src.main.java.ch.heigvd.dai;
-import src.main.java.ch.heigvd.dai.config.ConfigurationManager;
-import src.main.java.ch.heigvd.dai.model.prank.Prank;
-import src.main.java.ch.heigvd.dai.model.prank.PrankGenerator;
-import src.main.java.ch.heigvd.dai.smtp.SmtpClient;
+package ch.heigvd.dai;
+import ch.heigvd.dai.config.ConfigurationManager;
+import ch.heigvd.dai.model.prank.Prank;
+import ch.heigvd.dai.model.prank.PrankGenerator;
+import ch.heigvd.dai.smtp.SmtpClient;
 
 import java.util.List;
 import java.util.logging.Level;

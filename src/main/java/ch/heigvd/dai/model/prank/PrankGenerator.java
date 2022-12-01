@@ -1,8 +1,9 @@
-package src.main.java.ch.heigvd.dai.model.prank;
+package ch.heigvd.dai.model.prank;
 
-import src.main.java.ch.heigvd.dai.config.IConfigurationManager;
-import src.main.java.ch.heigvd.dai.model.mail.Group;
-import src.main.java.ch.heigvd.dai.model.mail.Person;
+import ch.heigvd.dai.config.ConfigurationManager;
+import ch.heigvd.dai.config.IConfigurationManager;
+import ch.heigvd.dai.model.mail.Group;
+import ch.heigvd.dai.model.mail.Person;
 
 import java.util.Collections;
 
@@ -25,10 +26,8 @@ public class PrankGenerator {
 
     public List<Prank> generatePranks() {
         List<Prank> pranks = new ArrayList<>();
-
         List<String> messages = configurationManager.getMessages();
         int messageIndex = 0;
-
         int numberOfGroups = configurationManager.getNumberOfGroups();
         int numberOfVictims = configurationManager.getVictims().size();
 
@@ -39,11 +38,11 @@ public class PrankGenerator {
 
         List<Group> groups = generateGroups(configurationManager.getVictims(), numberOfGroups);
         for (Group group : groups) {
-            Prank prank  = new Prank();
-
             List<Person> victims = group.getMembers();
             Collections.shuffle(victims);
             Person sender = victims.remove(0);
+
+            Prank prank  = new Prank();
             prank.setSender(sender);
             prank.addRecipiens(victims);
 
@@ -60,16 +59,19 @@ public class PrankGenerator {
         List<Person> availableVictims = new ArrayList<>(victims);
         Collections.shuffle(availableVictims);
         List<Group> groups = new ArrayList<>();
+
         for (int i = 0; i < numberOfGroups; i++){
             Group group = new Group();
             groups.add(group);
         }
+
         int turn = 0;
         Group targetGroup;
+
         while (availableVictims.size() > 0) {
             targetGroup = groups.get(turn);
             turn = (turn + 1) % groups.size();
-            Person victim =availableVictims.remove(0);
+            Person victim = availableVictims.remove(0);
             targetGroup.addMember(victim);
         }
         return groups;
