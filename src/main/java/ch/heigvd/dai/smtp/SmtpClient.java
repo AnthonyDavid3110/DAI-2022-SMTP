@@ -69,9 +69,9 @@ public class SmtpClient implements ISmtpClient {
         line = reader.readLine();
         LOG.info(line);
 
-        writer.write("Content.Tye: text/plain; charset=\"utf-8\"" + CRLF);
+        writer.write("Content-Type: text/plain; charset=utf-8");
         writer.write("From: " + message.getFrom() + CRLF);
-        writer.write("To: " + message.getTo()[0] + CRLF);
+        writer.write("To: " + message.getTo()[0]);
 
         for (int i = 1; i < message.getTo().length; i++){
             writer.write(", " + message.getTo()[i]);
@@ -80,6 +80,8 @@ public class SmtpClient implements ISmtpClient {
         writer.write(CRLF);
         writer.flush();
 
+        LOG.info("Subject: " + message.getSubject());
+        writer.write("Subject: " + message.getSubject());
         LOG.info(message.getBody());
         writer.write(message.getBody());
         writer.write(CRLF);

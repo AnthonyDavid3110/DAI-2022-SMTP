@@ -3,6 +3,7 @@ package ch.heigvd.dai.model.prank;
 import ch.heigvd.dai.model.mail.Message;
 import ch.heigvd.dai.model.mail.Person;
 
+import java.security.cert.CRL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,6 +14,8 @@ public class Prank {
     private Person sender;
     private final ArrayList<Person> recipients = new ArrayList<>();
     private String message;
+    private String subject;
+    private String body;
 
     public Person getSender() {
         return sender;
@@ -41,7 +44,13 @@ public class Prank {
     public Message generateMessage() {
         Message msg = new Message();
 
-        msg.setBody(this.message + CRLF + sender.getFirstName());
+        int indexEndSubject = message.indexOf(LF);
+        if (indexEndSubject == -1) indexEndSubject = message.indexOf(CRLF);
+        subject = message.substring(0, indexEndSubject).replace("Subject: ", "").trim();
+        body = message.substring(indexEndSubject + CRLF.length()).trim();
+
+        msg.setSubject(this.subject + CRLF);
+        msg.setBody(this.body + CRLF + sender.getFirstName() + " " + sender.getLastName());
 
         String[] to = recipients.stream().map(p -> p.getAddress()).collect(Collectors.toList()).toArray(new String[]{});
         msg.setTo(to);

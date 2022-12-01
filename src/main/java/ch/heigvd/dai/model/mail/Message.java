@@ -29,7 +29,7 @@ public class Message {
     }
 
     public void setSubject(String subject) {
-        this.body = subject;
+        this.subject = subject;
     }
 
     public String getBody()
