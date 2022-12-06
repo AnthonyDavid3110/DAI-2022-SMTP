@@ -1,16 +1,18 @@
 # Laboratoire 4 - Chose encore à faire
 
-# Docker
-- tester le fonctionnement
-- faire la documentation
+# code
+- Ajouter encodage
+- Simplifier le code
+- Relire le code
+- Ajouter java doc
+
 
 # Client smtp
-- voir si on veut message encodé en base64
+- README
+- Schéma UML
 
-# Code
-ajouter toString dans les classe
-
-
-Ligne 31 : voir si refonctionne en enlevant la variable temp.
-
-Classe message : gérer la séparation du sujet et du message
+# Présenation
+- Support de présentation
+- Déroulé de présentation
+- Préparer fichier JAR
+- Préparer tests lancement DOCKER

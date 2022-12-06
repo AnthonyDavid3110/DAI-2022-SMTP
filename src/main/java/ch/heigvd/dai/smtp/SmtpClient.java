@@ -4,6 +4,7 @@ import ch.heigvd.dai.model.mail.Message;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Base64;
 import java.util.logging.Logger;
 
 /**
@@ -69,20 +70,17 @@ public class SmtpClient implements ISmtpClient {
         line = reader.readLine();
         LOG.info(line);
 
-        writer.write("Content-Type: text/plain; charset=utf-8");
+        writer.write("Content-Type: text/plain; charset=utf-8" + CRLF);
         writer.write("From: " + message.getFrom() + CRLF);
         writer.write("To: " + message.getTo()[0]);
 
         for (int i = 1; i < message.getTo().length; i++){
             writer.write(", " + message.getTo()[i]);
         }
-
         writer.write(CRLF);
         writer.flush();
 
-        LOG.info("Subject: " + message.getSubject());
-        writer.write("Subject: " + message.getSubject());
-        LOG.info(message.getBody());
+        writer.write("Subject: =?utf-8?B?" + message.getBase64Subject() + "?=" + CRLF);
         writer.write(message.getBody());
         writer.write(CRLF);
         writer.write(".");

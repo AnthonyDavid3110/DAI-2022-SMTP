@@ -1,5 +1,8 @@
 package ch.heigvd.dai.model.mail;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
 public class Message {
     private String from;
     private String[] to = new String[0];
@@ -26,6 +29,10 @@ public class Message {
     public String getSubject()
     {
         return subject;
+    }
+
+    public String getBase64Subject() {
+        return new String(Base64.getEncoder().encode(subject.getBytes(StandardCharsets.UTF_8)));
     }
 
     public void setSubject(String subject) {
