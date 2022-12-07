@@ -8,9 +8,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Anthony David
+ * @author Stéphane Nascimento Santos
+ * @version 1.0
+ */
 public class App
 {
     private static final Logger LOG = Logger.getLogger(App.class.getName());
+
+    /**
+     * Main fonction of the application
+     * @param args of the app (not used in this app)
+     */
     public static void main( String[] args )
     {
         System.setProperty("java.util.logging.SimpleFormatter.format", "%4$s: %5$s%6$s%n");

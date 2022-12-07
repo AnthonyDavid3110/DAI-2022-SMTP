@@ -4,6 +4,8 @@
 - Simplifier le code
 - Relire le code
 - Ajouter java doc
+- gérer la signature des mails
+- 
 
 
 # Client smtp

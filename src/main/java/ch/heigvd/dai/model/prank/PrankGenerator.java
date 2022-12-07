@@ -1,6 +1,5 @@
 package ch.heigvd.dai.model.prank;
 
-import ch.heigvd.dai.config.ConfigurationManager;
 import ch.heigvd.dai.config.IConfigurationManager;
 import ch.heigvd.dai.model.mail.Group;
 import ch.heigvd.dai.model.mail.Person;
@@ -44,7 +43,7 @@ public class PrankGenerator {
 
             Prank prank  = new Prank();
             prank.setSender(sender);
-            prank.addRecipiens(victims);
+            prank.setRecipiens(victims);
 
             String message = messages.get(messageIndex);
             messageIndex = (messageIndex + 1) % messages.size();

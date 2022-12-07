@@ -17,13 +17,21 @@ public class SmtpClient implements ISmtpClient {
     private final String smtpServerAddr;
     private final int smtpServerPort;
 
-
-
+    /**
+     * Constructor
+     * @param smtpServerAddr SMTP adress
+     * @param smtpServerPort SMTP port
+     */
     public SmtpClient(String smtpServerAddr, int smtpServerPort) {
         this.smtpServerAddr = smtpServerAddr;
         this.smtpServerPort = smtpServerPort;
     }
 
+    /**
+     * Connection end sending of one message to the SMTP server
+     * @param message
+     * @throws IOException
+     */
     @Override
     public void sendMessage(Message message) throws IOException {
         LOG.info("Sending message via SMTP");

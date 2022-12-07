@@ -88,7 +88,7 @@ Le répôt GitHub de l'application MockMockServer est disponible à l'adresse su
 
 https://github.com/DominiqueComte/MockMock
 
-Ce qui permet d'aller voir comment est implémenté le programme. Cependant, un exécutable `.jar` est disonible dans le fork de l'application décrit au point 2 de ce document dans le dossier `docker`.
+Ce qui permet d'aller voir comment est implémenté le programme. Cependant, un exécutable `.jar` est disonible dans le fork du projet décrit au point 2 de ce document dans le dossier `docker`.
 
 Pour lancer l'application, il suffit d'effectuer la commande suivante dans le dossier docker :
 
@@ -125,20 +125,65 @@ A noter que lors d'envoi de mail sur MockMockServer, en plus d'être visile sur 
 
 Il est également possible et fortement conseillé de faire fonctionner l'application dans un container docker.
 
+Docker doit être installé est fonctionnel sur la machine hôte. Si ce n'est pas le cas, une procédure détaillée est disponible ici :
 
+https://docs.docker.com/get-started/
 
-Pour se faire, des scriptes sont à disposition dans le dossier `docker` du projet.
+Des scriptes sont à dispositions afin de faciliter la création de l'image ainsi que son déploiement. Par défaut, les ports utilisés sont les suivants :
+
+SMTP = 25
+
+HTTP = 8282
+
+Pour modifier les ports, il faut modifier le scripte run-container.sh et remplacer les ports susmentionnés par ceux que l'on désire.
 
 1) Lancer la construction de l'image :
 
    `./build-image.sh`
+   
+   Après l'exécution de la commande, l'invité de commande devrait être dans l'état suivant :
+   
+   <p align="center">
+       <img src="figures/cmd_buildImage.png" width="800" class="center"> 
+   </p>
+
+2. Lancer le déploiement du container sur Docker:
+
+   `./run-container.sh`
+
+   Après l'exécution, notre invité de commande doit être dans l'état suivant :
+
+   <p align="center">
+       <img src="figures/cmd_runContainer.png" width="800" class="center"> 
+   </p>
+
+​	A noter qu'une fois l'application en fonctionnement, le comportement est le même qu'au point [3.3](#3.3.-Exécuter-MockMockServer). C'est-à-dire que lors de chaque mail reçu par le serveur Mock, une ligne sera ajouté dans l'invité de commande et que l'interfaceweb est disponible via localhost:port.
 
 # 4. Mail Prank Generator
 
+## 4.1 L'application Mail Prank Generator
+
+## 4.2 Paramétrage de l'application
+
+## 4.3 utilisation de l'application
 
 
 # 5. Description de l'implémentation
 ## 5.1 Diagramme de classe
+<p align="center">
+    <img src="figures/diagrammeClasse_PrankMailGenerator.png" width="1200" class="center"> 
+</p>
+
 TODO : ajouter diagramme de classe
+
+## Explications sur l'implémentation
+
+### 5.2.1 Gestion des paramètres
+
+### 5.2.2 Partie de modélisation
+
+### 5.2.3 Partie des canular
+
+### 5.2.4 Partie SMTP
 
 # 6. Conlusion
