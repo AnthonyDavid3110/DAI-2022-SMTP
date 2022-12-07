@@ -1,7 +1,6 @@
 # Laboratoire 4 - Chose encore à faire
 
 # code
-- Ajouter encodage
 - Simplifier le code
 - Relire le code
 - Ajouter java doc
@@ -11,7 +10,7 @@
 - README
 - Schéma UML
 
-# Présenation
+# Présentation
 - Support de présentation
 - Déroulé de présentation
 - Préparer fichier JAR

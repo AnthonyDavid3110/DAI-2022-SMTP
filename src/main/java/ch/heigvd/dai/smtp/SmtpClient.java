@@ -4,7 +4,7 @@ import ch.heigvd.dai.model.mail.Message;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Base64;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 /**
@@ -29,8 +29,8 @@ public class SmtpClient implements ISmtpClient {
         LOG.info("Sending message via SMTP");
 
         Socket socket = new Socket(smtpServerAddr, smtpServerPort);
-        PrintWriter writer = new PrintWriter((new OutputStreamWriter(socket.getOutputStream(), "UTF-8")), true);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+        PrintWriter writer = new PrintWriter((new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8)), true);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
 
         String line = reader.readLine();
         LOG.info(line);

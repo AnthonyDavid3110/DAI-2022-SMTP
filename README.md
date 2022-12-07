@@ -15,9 +15,15 @@ Plus précisément, les objectifs sont les suivants :
 5. Concevoir une application client orienté objet pour mettre en oeuvre une liste d'exigences spécifiques.
 
 # Description du projet
-Le projet tel qu'établit s'est composé en plusieurs parties :
+L'entier du projet se trouve sur GitHub à l'adresse suivante :
 
-Premièrement, il y a eu la partie de prise en main et de compréhension du protocole SMTP. Nous avons simulé la communication entre un client et un serveur SMTP. Afin de pouvoir faire cette simulation, nous nous sommes connecté à un serveur SMTP 
+https://github.com/AnthonyDavid3110/DAI-2022-SMTP
+
+Afin de pouvoir les différents outils développés dans le cadre de ce laboratoire, il suffit de forker le repository GitHub susmentionné et de le cloner sur la machine local. Une procédure décrivant ces démarches est disponible dans la documentation de GitHub :
+
+https://docs.github.com/fr/get-started/quickstart/fork-a-repo
+
+
 
 # MockMock Server
 
