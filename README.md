@@ -25,7 +25,9 @@ https://docs.github.com/fr/get-started/quickstart/fork-a-repo
 
 Une fois le fork et le clone effectué, on trouve sur notre machine un dossier avec l'arborescence suivante:
 
-*To do  :  Ajouter schéma arbo*
+<p align="center">
+    <img src="figures/arborescence_projet.png" width="200" class="center"> 
+</p>
 
 Les fichiers README.md et README.pdf comprennent le présent rappport respectivement en format MarkDown et PDF.
 
@@ -39,7 +41,7 @@ Il contient les différents fichiers de configuration de notre application :
 - `adresses.utf8` qui contient les adresse des personnes à piéger
 - `param.properties` qui contient les paramètres de configuration
 
-La modification de la configuration de notre application via la modification des ces fichiers est expliquée au point 5 de ce document.
+La modification de la configuration de notre application via la modification des ces fichiers est expliquée au [Point 4.2](#4.2 Paramétrage de l'application) de ce document.
 
 ## 2.2 Dossier docker
 Le dossier `docker` contient les differnents fichier pour faire fonctionner un seveur fictif SMTP "MockMockServer" dans un container docker :
@@ -52,15 +54,15 @@ Le dossier `docker` contient les differnents fichier pour faire fonctionner un s
 - `build-image.sh` qui est un scripte pour le construction de l'image du container docker.
 - `run-container.sh` qui est un scripte permettant de démarrer le container sur docker.
 
-Une procédure d'utilisation complète du serveur fictif SMTP est dispnible au point 3. de ce document.
+Une procédure d'utilisation complète du serveur fictif SMTP est dispnible au [Point 3.3](#3.3. Exécuter MockMockServer) de ce document.
+
+3.3. Exécuter MockMockServer
 
 ## 2.3 Dossier src
 
 Le dossier `src` contient tout le code source de application "MailPrankGenerator" développé en Java. Il contient différent sous-dossiers représentant les différents packages de l'application. 
 
-
-
-Une description précise de l'implémentation du programme est faite au point 5 de ce document.
+Une description précise de l'implémentation du programme est faite au [Point 5](#5.-Description-de-l'implémentation) de ce document.
 
 ## 2.4 Dossier figures
 
@@ -101,8 +103,6 @@ Si le serveur a bien démarré, le contenu de l'invité de commande devrait êtr
 <p align="center">
     <img src="figures/cmd_lancementMockMockServer.png" width="800" class="center"> 
 </p>
-
-
 Pour se rendre sur l'interface web, l'adresse du serveur sera localhost (comme l'application tourne sur la machine) et le port 8282 comme mentionné ci-dessus :
 
 ```localhost:8282```
@@ -110,10 +110,6 @@ Pour se rendre sur l'interface web, l'adresse du serveur sera localhost (comme l
 <p align="center">
     <img src="figures/interfaceweb_mockmockserver.png" width="1000" class="center"> 
 </p>
-
-
-
-
 
 A noter que lors d'envoi de mail sur MockMockServer, en plus d'être visile sur le l'interface web, il y a egalement une indication dans l'invité de commande où a été lancé le programme avec l'ajout d'une ligne tel que celle-ci :
 
@@ -163,27 +159,206 @@ Pour modifier les ports, il faut modifier le scripte run-container.sh et remplac
 
 ## 4.1 L'application Mail Prank Generator
 
+L'application Mail Prank Generator va permettre d'envoyer des emails canulars à une liste de contact prédéfinie. 
+
+Pour se faire, nous allons utiliser 
+
 ## 4.2 Paramétrage de l'application
+
+Dans le dossier `param` se trouvant à la racine projet, se trouve 3 fichiers de configuration. Par défaut il sont configuration afin de pouvoir utiliser l'application sans les modifier mais il peuvent être adapté au besoin de l'utilisateur.
+
+### 4.2.1 Configuration des messages à envoyer
+
+Le fichier `param.properties` contient les paramètres de fonctionnement de l'application, soit :
+
+- L'adresse de la machine `host=`
+
+  Par défaut `localhost` car prêt pour une utilisation avec [MockMockServer](#3.-MockMock-Server).
+
+- Le port SMTP du serveur `port=`
+
+  Par défaut configuré sur `25` car prêt pour une utilisation avec [MockMockServer](#3.-MockMock-Server) configuré comme ci-dessus.
+
+- Le nombre de groupe de victims `nbgroups=`
+
+  Par défaut configuré à `3` groupes de victimes
+
+Les valeurs contenues dans le fichiers peuvent être modifié avant chaque lancement de l'application.
+
+### 4.2.2 Modifier de liste des victime
+
+Le fichier `adresses.utf8` contient la listes des victimes et des faux expéditeurs de mail.
+
+L'application est configuré pour créer automatiquement le nombre de groupe de victimes configuré dans le fichier `param.properties`
+
+A noter que le nombre minimum d'adresses par groupe est de 3 au minimum (soit une adresse qui sera l'expéditeur et au minium 2 adresse qui reçevront le mail). Si le nombre d'adresse n'est pas suffisant, l'application en fonctionnera pas.
+
+A noter également que l'application ajoute automatiquement une signature au mail avec le prénom et le nom de l'expéditeur (le même que l'adresse d'expédition) si, et uniquement si, elle arrive à déterminer le prénom et le nom depuis l'adresse e-mail. L'application peut le faire si l'adresse mail de l'expéditeur est sous le format `prenom.nom@...`. Dans le cas contraire, mail sera envoyé sans signature.
+
+### 4.2.3 Modifier la liste des victimes
+
+Dernier fichier de configuration, `messages.utf8` contient le sujet et le corps d'e-mails fictifs utilsé par l'application pour envoyer les canulars.
+
+Il est donc possible de modifier /  ajouter des e-mails dans ce dossier.
+
+Cependant, il est nécéssaire de respcéter les consignes suivantes :
+
+- Chaque mail doit être séparé de la suite de caractère `==`.
+- Chaque mail dans commençer par le sujet sous le formt `subject: {sujet du mail}`.
+- Une ligne vide doit être laissée entre le sujet et le corps du mail.
+- Les mails ne doivent pas être signées au risque de l'être doublement si l'application arriver à déterminer un prénom et un nom à partir de l'adresse mail de l'expéditeur du canular.
 
 ## 4.3 utilisation de l'application
 
+Une fois les différents fichiers de configurations édités aux besoin, on peut trouver un fichier exécutable `MailPrankGenerator.jar` la racine du projet.
+
+Etant donné que l'application retourne dans le terminal un état des lieux des différentes interractions faites avec les serveur, il est fortement recommandé de lancer l'application depuis un terminal afin de pouvoir s'assurer du bon fonctionnement de l'application.
+
+Il suffit donc de lancer l'application avec la commande :
+
+`java -jar MailPrankGenerator.jar`
+
+<p align="center">
+    <img src="figures/client_envoiMail.png" width="1000" class="center"> 
+</p>
+
+Si on reçoit en retour uniquement les `INFO: {...}`et que le programme termine par la ligne :
+
+<p style="background-color: black;color: white; font-family: Courier New">
+	INFO: End of the program.
+</p>
+
+C'est que tout s'est passé comme escompté.
 
 # 5. Description de l'implémentation
+
 ## 5.1 Diagramme de classe
+
+
 <p align="center">
     <img src="figures/diagrammeClasse_PrankMailGenerator.png" width="1200" class="center"> 
 </p>
 
-TODO : ajouter diagramme de classe
 
-## Explications sur l'implémentation
+
+
+## 5. 2 Explications sur l'implémentation
+
+On peut découper notre application en 3 grandes parties que sont :
+
+- La gestion des paramètres
+- La modélisation des canulars et des informations nécéssaires
+- L'envoi des canulars via SMTP
+
+Nous avons opté pour une solution ou chacun de ces parties était intégré à un package afin de structuer notre de manière optimale et de permettre la réutilsation d'une partie de celui-ci. On pourrait par exemple imaginer réutiliser la gestion des paramètres dans une autre application qui enverrai autre chose que des pranks.
+
+A noter que la conception de l'application se base grandement sur les vidéos du cours de DAI :
+
+https://www.youtube.com/watch?v=ot-bDyqgTtk
+
+https://www.youtube.com/watch?v=Nj34XicS6JM
+
+https://www.youtube.com/watch?v=LoFKsT9Rj10
+
+https://www.youtube.com/watch?v=OrSdRCt_6YQ
+
+La structure de notre programme en est grandement inspiré et des informations complémentaire sur l'implémentation du client peuvent être trouvées sur les vidéos si elle serait manquante ou insuffisamment précise dans ce présent document.
 
 ### 5.2.1 Gestion des paramètres
 
-### 5.2.2 Partie de modélisation
+Comme expliqué précédemment dans ce document, les propriétés, les mails à envoyer ainsi que les addresses sont stockés dans 3 fichiers de configuration qu'il est possible de modifier sans avoir à le faire dans le code Java de l'application.
 
-### 5.2.3 Partie des canular
+Afin d'aller lire les paramètres stockés dans ces fichiers, nous avons implémenter un package `config` implémentant une Classe `ConfigurationManager` Permettant d'aller lire et de charger les informations dans les fichiers de configuration.
 
-### 5.2.4 Partie SMTP
+A noter l'implémentation d'un contrôle de la bonne forme des adresse mail faisant stopper le programme si une adresse mail n'est pas dans un format adéquoit.
+
+### 5.2.2 Modélisation
+
+Pour ce qui est de la modélisation, nous avons décidé de séparer encore en dous sous-package :
+
+**mail**
+
+Comprenant une classe `Groupe`, une classe `Message`, et une classe `Person`modélisant respectivement un objet du type dont il portent le nom.
+
+A noter l'implémentation d'un getter supplémentaire sur le Subject retournant ce dernier encodé en Base64. Il est nécéssaire d'avoir cette encodage du sujet du mail lors de l'envoi.
+
+A noter que lors de la création d'une personne, si le mail est de format `prénom.nom@...` il va récupérer le prénom et le nom de la personne. ce qui lui permettra lors de la création du prank d'ajouter une signature au mail avec le même prénom et le même nom que dans l'adresse mail, ce qui augemente la crédibilité de notre prank.
+
+**Prank**
+
+Modélisant le canular en lui-même et offrant les méthodes nécéssaire à la création de ces derniers.
+
+### 5.2.3 Partie SMTP
+
+Interface et classe permettant l'envoi de nos pranks via l'API Socket au serveur SMTP.
+
+### 5.2.5. App
+
+Finalement, nous avons le fichier App.java qui contient la fonctions `main()`principale du programme.
+
+## 5.3 Communication avec le serveur
+
+Comme évoqué ci-dessus, le client utilise le procole TCP et l'API Socket afin de communiquer avec le serveur SMTP.
+
+La communication avec un serveur SMTP fonctionne de manière relativement simple puisqu'il va répondre à une suite de commande précise que le client va lui envoyer.
+
+Schématiquement la conversation peut vue comme ça :
+
+<p align="center">
+    <img src="figures/Initiate-SMTP-transfer-session-sequence-diagram.png" width="500" class="center"> 
+</p>
+
+Les commandes utilisée dans l'application sont les suivante :
+
+- `EHLO` permet au client de se présenter au serveur
+- `MAIL FROM` permet au client d'indiquer l'adresse de l'expéditeur
+- `RCPT TO` permet au client d'indiquer l'adresse du/des réceptionnaires du mail
+- `DATA `permet d'envoyer respectivement les en-êtes et le corps du mail
+
+Le serveur répond à chaque fois par un code afin que le client puisse s'assurer que tout s'est bien passé (par exemple `250 OK` si tout est bon pour le serveur).
+
+### 5.3.1 Exemple de communication client-serveur SMPT
+
+Indications : 
+
+- `s` pour server 
+- `c`pour client
+- Communication entre l'application `MailPrankGenerator` et un serveur `MockMockServer`configuré sur le`port=25` démarré sur la machine local `host=localhost`.
+
+    S: 220 23b06c98098b ESMTP MockMock SMTP Server version 1.4
+    C: EHLO localhost 
+    S: 250-23b06c98098b
+    S: 250-8BITMIME
+    S: 250 Ok
+    C: MAIL FROM: Teresa.Martin@hotmail.com
+    S: 250 OK
+    S: RCPT TO: John.Benjamin@yahoo.com
+    S: 250 OK
+    S: RCPT TO: Susan.Stevens@gmail.com
+    S: 250 OK
+    S: RCPT TO: Debbie.Stewart@yahoo.com
+    S: 250 OK
+    C: DATA
+    S: 354 End data with <CR><LF>.<CR><LF>
+    C: Content-Type: text/plain; charset=utf-8
+    C: From: Teresa.Martin@hotmail.com
+    C: To: John.Benjamin@yahoo.com 
+    C: , Susan.Stevens@gmail.com
+    C: , Debbie.Stewart@yahoo.com
+    C: Subject: =?utf-8?B?R8OpbmlhbCBjb25jZXJ0IGR1IEfDqW5pYWwgZ3JvdXBlICJnw6luw6lyaXF1JiIgIQ==?=
+    C: Salut !
+       J'espère que tu vas bien !
+       Je sais pas si tu as vu mais le fanfare d'Yvonand donne prochaine son concert annuel. Ca te dirais de venir avoir moi ?
+    
+       A+
+    C: .
+    C:
+    S: 250 OK
+    C: QUIT
+    S: 221 Bye
 
 # 6. Conlusion
+
+Après avoir effectué ce laboratoire, nous avons compris le concept de communication avec un serveur SMTP et comment implémenter une solution simple de client pouvant le faire.
+
+Ce laboratoire nous a aussi permis de nous familiariser par la pratique avec l'environnement Docker ce qui a été fort appréciable.
